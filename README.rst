@@ -275,7 +275,7 @@ below contains available variables and methods.
                      contents in the script, note that the file is processed using Jinja as well and
                      that the file must exist before buildrunner is run or else this method will
                      fail
-
+                     
 Jinja filters
 -------------
 
@@ -284,6 +284,7 @@ Jinja filters
 :``base64decode``: Base64 decoding filter
 :``re_sub``: performs a regular expression replacement on text
 :``re_split``: uses a pattern to split text
+:``env``: substitute a value from an environment variable
 
 Steps Dependencies
 ==========================

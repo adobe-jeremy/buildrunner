@@ -50,7 +50,6 @@ class BuildRunnerConfig:  # pylint: disable=too-many-instance-attributes
     """
     Class used to manage buildrunner config.
     """
-
     @staticmethod
     def _raise_exception_jinja(message):
         """
@@ -58,6 +57,14 @@ class BuildRunnerConfig:  # pylint: disable=too-many-instance-attributes
         """
         # pylint: disable=broad-exception-raised
         raise Exception(message)
+
+    @staticmethod
+    def _env(envvar):
+        """
+        Get the value of an environment variable
+        :param envvar: The environment variable to get the value of
+        """
+        return os.getenv(envvar)
 
     @staticmethod
     def _re_sub_filter(text, pattern, replace, count=0, flags=0):
@@ -331,6 +338,7 @@ class BuildRunnerConfig:  # pylint: disable=too-many-instance-attributes
             jenv.filters['base64decode'] = base64.decode
             jenv.filters['re_sub'] = self._re_sub_filter
             jenv.filters['re_split'] = self._re_split_filter
+            jenv.filters['env'] = self._env
 
             jenv.globals.update(checksum=checksum)
             jtemplate = jenv.from_string(contents)
@@ -344,6 +352,7 @@ class BuildRunnerConfig:  # pylint: disable=too-many-instance-attributes
                 'read_yaml_file': self._read_yaml_file,
                 'raise': self._raise_exception_jinja,
                 'strftime': self._strftime,
+                'env': self._env,
             })
 
             if ctx:

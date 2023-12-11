@@ -1,0 +1,12 @@
+steps:
+  test:
+    run:
+      image: {{ DOCKER_REGISTRY }}/busybox:latest
+      env:
+        TEST2: {{ env('TEST2') }}
+      cmd: |
+        if [ "{{ env('TEST1') }}" == "TEST1" ] && [ "$TEST2" == "TEST2" ]; then
+          echo "Variables validated successfully"
+        else
+          exit 1
+        fi

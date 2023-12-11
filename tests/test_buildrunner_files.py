@@ -24,6 +24,11 @@ def _get_test_args(file_name: str) -> Optional[List[str]]:
         # Override platform to amd
         return ['--platform', 'linux/amd64']
 
+    if file_name == 'test-filters.yaml':
+        os.environ['TEST1'] = 'TEST1'
+        os.environ['TEST2'] = 'TEST2'
+        return ['--keep-step-artifacts']
+
     # No additional args for this test file
     return None
 
